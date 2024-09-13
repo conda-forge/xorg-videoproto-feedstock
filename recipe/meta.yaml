@@ -15,7 +15,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1001
+  number: 1002
   detect_binary_files_with_prefix: true
 
 requirements:
@@ -24,8 +24,11 @@ requirements:
     - m2-automake{{ am_version }}  # [win]
     - m2-libtool  # [win]
     - m2w64-pkg-config  # [win]
+    - make
     - pkg-config  # [not win]
     - posix  # [win]
+    - gnuconfig  # [unix]
+    - {{ stdlib('c') }}          # [unix]
     - {{ compiler('c') }}        # [unix]
     - {{ compiler('m2w64_c') }}  # [win]
   host:
@@ -40,9 +43,10 @@ about:
   license: MIT
   license_family: MIT
   license_file: COPYING
-  summary: 'Print extension headers'
+  summary: X Video Extension
 
 extra:
   recipe-maintainers:
     - epruesse
     - pkgw
+    - ehfd
