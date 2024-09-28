@@ -22,12 +22,6 @@ else
     uprefix="$PREFIX"
 fi
 
-# Cf. https://github.com/conda-forge/staged-recipes/issues/673, we're in the
-# process of excising Libtool files from our packages. Existing ones can break
-# the build while this happens. We have "/." at the end of $uprefix to be safe
-# in case the variable is empty.
-find $uprefix/. -name '*.la' -delete
-
 # On Windows we need to regenerate the configure scripts.
 if [ -n "$CYGWIN_PREFIX" ] ; then
     am_version=1.15 # keep sync'ed with meta.yaml
@@ -75,6 +69,9 @@ fi
 ./configure "${configure_args[@]}"
 make -j$CPU_COUNT
 make install
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
+make check
+fi
 rm -rf $uprefix/share/man $uprefix/share/doc/${PKG_NAME#xorg-}
 
 # Remove any new Libtool files we may have installed. It is intended that
