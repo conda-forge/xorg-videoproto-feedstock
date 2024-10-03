@@ -3,7 +3,7 @@
 {% set name = "xorg-" ~ xorg_name %}
 {% set version = "2.3.3" %}
 {% set sha256 = "c7803889fd08e6fcaf7b68cc394fb038b2325d1f315e571a6954577e07cca702" %}
-{% set am_version = "1.15" %} # keep synchronized with build.sh
+{% set am_version = "1.16" %} # keep synchronized with build.sh
 
 package:
   name: {{ name|lower }}
@@ -15,7 +15,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1003
+  number: 1004
   detect_binary_files_with_prefix: true
 
 requirements:
